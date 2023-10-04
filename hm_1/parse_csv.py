@@ -1,5 +1,3 @@
-# coding: utf-8
-
 import csv
 from typing import Any, Dict, List, Set
 
