@@ -7,7 +7,13 @@ class CountVectorizer:
     """
     Convert a collection of text documents to a matrix of token counts.
     """
-    def __init__(self):
+    def __init__(self) -> None:
+        """
+        Initialize the CountVectorizer instance.
+
+        Sets up empty lists for tokenized corpus, individual texts,
+        and feature names.
+        """
         self.tokenized_corpus = []
         self.tokenized_text = []
         self.feature_names = []
