@@ -7,7 +7,8 @@ PATH = './Corp_Summary.csv'
 MAIN_MENU = """
     1. Вывести иерархию команд
     2. Вывести сводный отчёт по департаментам
-    3. Выйти из программы
+    3. Сохранить отчёт
+    4. Выйти из программы
     Введите номер пункта:
     """
 SIDE_MENU = """
@@ -99,12 +100,18 @@ def print_salary_report(report: Dict[str, Dict[str, float]]) -> None:
     Prints a formatted salary report for each department based
     on the provided data.
     """
-    print(f"{'Department':<20} | {'Count':>5} | \
-        {'Min':>7} | {'Max':>7} | {'Average':>10}")
-    print('-' * 60)
+    header_format = "{:<20} | {:>5} | {:>8} | {:>10} | {:>10}"
+    row_format = "{:<20} | {:>5} | {:>8} | {:>10} | {:>10.2f}"
+    print(header_format.format('Department', 'Count', 'Min', 'Max', 'Average'))
+    print('-' * 60)  # Adjusted to match the number of characters in the header
     for department, info in report.items():
-        print(f"{department:<20} | {info['count']:>5} | {info['min']:>7} | \
-            {info['max']:>7} | {info['average']:>10.2f}")
+        print(row_format.format(
+            department,
+            info['count'],
+            info['min'],
+            info['max'],
+            info['average']
+        ))
 
 
 def save_salary_report(report: Dict[str, Dict[str, float]]) -> None:
@@ -121,7 +128,7 @@ def save_salary_report(report: Dict[str, Dict[str, float]]) -> None:
         writer = csv.DictWriter(csvfile, fieldnames=header)
         writer.writeheader()
         writer.writerows(final_report)
-    print(f'\nРепорт сохранён: {name_file}')
+    print(f'\nОтчёт сохранён: {name_file}')
 
 
 if __name__ == '__main__':
@@ -150,12 +157,19 @@ if __name__ == '__main__':
                     break
 
                 else:
-                    print('\nНеверный ввод! Пожалуйста, \
-                        введите номер от 1 до 2.')
+                    print("""
+                          Неверный ввод!
+                          Неверный ввод! Пожалуйста,
+                          введите номер от 1 до 2.
+                        """)
 
         elif choice == '3':
+            report = make_salary_report(data)
+            save_salary_report(report)
+
+        elif choice == '4':
             print('\nВыход из программы...')
             break
 
         else:
-            print('\nНеверный ввод! Пожалуйста, введите номер от 1 до 3.')
+            print('\nНеверный ввод! Пожалуйста, введите номер от 1 до 4.')
