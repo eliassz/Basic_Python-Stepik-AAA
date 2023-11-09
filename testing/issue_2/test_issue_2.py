@@ -1,10 +1,23 @@
+import pytest
 from issue_2 import decode
 
 
-def test_decode():
-    assert decode('..-. --- ---') == 'FOO'
-    assert decode('-... .- --..') == 'BAZ'
-    assert decode('-... .- .-.') == 'BAR'
+@pytest.mark.parametrize("input_data, expected", [
+    (
+        '..-. --- ---',
+        'FOO',
+    ),
+    (
+        '-... .- --..',
+        'BAZ',
+    ),
+    (
+        '-... .- .-.',
+        'BAR'
+    )
+])
+def test_decode(input_data, expected):
+    assert decode(input_data) == expected
 
 
 if __name__ == "__main__":
