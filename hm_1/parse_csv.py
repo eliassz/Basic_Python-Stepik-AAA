@@ -21,7 +21,14 @@ SIDE_MENU = """
 
 def read_file(file_path: str) -> List[Dict[str, Any]]:
     """
-    Reads a CSV file and returns its content as a list of dictionaries.
+    Reads the contents of a CSV file specified by file_path.
+
+    Parameters:
+    - file_path (str): The path to the CSV file to be read.
+
+    Returns:
+    - List[Dict[str, Any]]: A list of dictionaries where each dictionary represents a row in the CSV file,
+                             with keys being the column headers and values being the row entries.
     """
     data = []
 
@@ -35,8 +42,16 @@ def read_file(file_path: str) -> List[Dict[str, Any]]:
 
 def make_hierarchy(data: List[Dict[str, Any]]) -> Dict[str, Set[str]]:
     """
-    Creates a hierarchy of departments and their associated branches
-    from the given data.
+    Constructs a hierarchy mapping from a list of data where each element is a dictionary
+    containing department and branch information.
+
+    Parameters:
+    - data (List[Dict[str, Any]]): A list of dictionaries where each dictionary contains
+                                   department and branch data with keys 'Департамент' and 'Отдел'.
+
+    Returns:
+    - Dict[str, Set[str]]: A dictionary where keys are department names and values are sets of branches
+                            within those departments.
     """
     departments = set([el['Департамент'] for el in data])
     hierarchy = {dept: set() for dept in departments}
@@ -51,7 +66,11 @@ def make_hierarchy(data: List[Dict[str, Any]]) -> Dict[str, Set[str]]:
 
 def print_hierarchy(hierarchy: Dict[str, Set[str]]) -> None:
     """
-    Prints the department and branch hierarchy in a formatted manner.
+    Prints out the hierarchy of departments and their branches in a readable format.
+
+    Parameters:
+    - hierarchy (Dict[str, Set[str]]): The hierarchy to be printed, represented as a dictionary
+                                       where the key is a department and the value is a set of branches.
     """
     for department, branches in hierarchy.items():
         print(department + ':')
@@ -64,7 +83,15 @@ def make_salary_report(
         data: List[Dict[str, Any]]
         ) -> Dict[str, Dict[str, float]]:
     """
-    Generates a salary report for each department based on the provided data.
+    Generates a salary report from a list of dictionaries containing salary data.
+
+    Parameters:
+    - data (List[Dict[str, Any]]): A list of dictionaries, where each dictionary contains
+                                   salary information for an employee with keys 'Департамент' and 'Оклад'.
+
+    Returns:
+    - Dict[str, Dict[str, float]]: A dictionary where the key is a department and the value is another
+                                   dictionary containing 'count', 'min', 'max', and 'average' salary data.
     """
     report = {}
     for el in data:
@@ -97,8 +124,12 @@ def make_salary_report(
 
 def print_salary_report(report: Dict[str, Dict[str, float]]) -> None:
     """
-    Prints a formatted salary report for each department based
-    on the provided data.
+    Prints a formatted salary report for each department.
+
+    Parameters:
+    - report (Dict[str, Dict[str, float]]): A dictionary representing the salary report for each department,
+                                            where the key is the department name and the value is a dictionary
+                                            with salary statistics.
     """
     header_format = "{:<20} | {:>5} | {:>8} | {:>10} | {:>10}"
     row_format = "{:<20} | {:>5} | {:>8} | {:>10} | {:>10.2f}"
@@ -116,7 +147,14 @@ def print_salary_report(report: Dict[str, Dict[str, float]]) -> None:
 
 def save_salary_report(report: Dict[str, Dict[str, float]]) -> None:
     """
-    Saves the provided salary report to a CSV file.
+    Saves the salary report data to a CSV file named 'report.csv'.
+
+    Parameters:
+    - report (Dict[str, Dict[str, float]]): A dictionary representing the salary report for each department
+                                            that will be saved to the file.
+
+    Side Effects:
+    - A file 'report.csv' is created or overwritten in the current working directory with the salary report data.
     """
     for k, v in report.items():
         v.update({'Department': k})
