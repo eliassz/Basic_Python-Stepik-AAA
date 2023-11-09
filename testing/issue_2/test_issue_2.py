@@ -18,8 +18,3 @@ from issue_2 import decode
 ])
 def test_decode(input_data, expected):
     assert decode(input_data) == expected
-
-
-if __name__ == "__main__":
-    test_decode()
-    print("All tests passed!")
