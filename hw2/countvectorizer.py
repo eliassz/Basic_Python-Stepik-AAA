@@ -1,10 +1,16 @@
 from typing import Dict, List
 
+import warnings
+
 
 class CountVectorizer:
     """
     Convert a collection of text documents to a matrix of token counts.
     """
+    def __init__(self):
+        self.tokenized_corpus = []
+        self.tokenized_text = []
+        self.feature_names = []
 
     def _tokenize(self, corpus: List[str]) -> None:
         """
@@ -13,8 +19,6 @@ class CountVectorizer:
         Args:
             corpus: A list of text documents.
         """
-        self.tokenized_corpus = []
-        self.tokenized_text = []
         for text in corpus:
             tokens = text.lower().split()
             self.tokenized_text.append(tokens)
@@ -57,7 +61,10 @@ class CountVectorizer:
         Returns:
             A list of feature names.
         """
-        return self.feature_names
+        if self.feature_names:
+            return self.feature_names
+        warnings.warn("Return None if fit_transform method isn't used.")
+        return None
 
 
 if __name__ == '__main__':
