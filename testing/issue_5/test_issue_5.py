@@ -1,10 +1,11 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
 from issue_5 import what_is_year_now
 
-@patch('what_is_year_now.urllib.request.urlopen')
-class TestWhatIsYearNow(unittest.TestCase):
 
+@patch("issue_5.urllib.request.urlopen")
+class TestWhatIsYearNow(unittest.TestCase):
     def mock_urlopen(self, mock_urlopen, return_value):
         mock_response = MagicMock()
         mock_response.read.return_value = return_value
@@ -23,5 +24,6 @@ class TestWhatIsYearNow(unittest.TestCase):
         with self.assertRaises(ValueError):
             what_is_year_now()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
