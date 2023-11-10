@@ -142,7 +142,7 @@ def print_salary_report(report: Dict[str, Dict[str, float]]) -> None:
     header_format = "{:<20} | {:>5} | {:>8} | {:>10} | {:>10}"
     row_format = "{:<20} | {:>5} | {:>8} | {:>10} | {:>10.2f}"
     print(header_format.format('Department', 'Count', 'Min', 'Max', 'Average'))
-    print('-' * 60)  # Adjusted to match the number of characters in the header
+    print('-' * 60)
     for department, info in report.items():
         print(row_format.format(
             department,
