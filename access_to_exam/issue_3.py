@@ -1,5 +1,4 @@
 import math
-
 from typing import List
 
 
@@ -31,16 +30,14 @@ def idf_transform(count_matrix: List[List[int]]) -> List[float]:
     return idf_transformation
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     count_matrix = [
         [1, 1, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0],
         [0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1],
     ]
     idf_matrix = idf_transform(count_matrix)
 
-    check_idf_matrix = [
-        1.4, 1.4, 1.0, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4
-    ]
+    check_idf_matrix = [1.4, 1.4, 1.0, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4]
 
     assert idf_matrix == check_idf_matrix
 
